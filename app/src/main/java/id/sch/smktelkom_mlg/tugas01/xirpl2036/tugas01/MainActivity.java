@@ -12,17 +12,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    EditText Ednama;
+    EditText etnama;
     TextView tv1, tv2, tv3, tv4;
     Button Butt;
     RadioGroup Group;
     CheckBox cb1, cb2,cb3;
     Spinner spin;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Ednama = (EditText) findViewById(R.id.Nama) ;
+        etnama = (EditText) findViewById(R.id.nn1) ;
         tv1 = (TextView) findViewById(R.id.t1);
         tv2= (TextView)findViewById(R.id.t2);
         tv3= (TextView)findViewById(R.id.t3);
@@ -32,19 +34,19 @@ public class MainActivity extends AppCompatActivity {
         cb1= (CheckBox)findViewById(R.id.basket);
         cb2= (CheckBox)findViewById(R.id.voli);
         cb3= (CheckBox)findViewById(R.id.futsal);
-        spin= (Spinner)findViewById(R.id.jurusan);
+        spin= (Spinner)findViewById(R.id.jr);
 
         Butt.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View view) {
+            public void onClick (View view) {
                 doProcess();
-                deClick();
+                doClick();
             }
         });
     }
 
-    private void deClick() {
+    private void doClick() {
     String hasil = null;
         if (Group.getCheckedRadioButtonId() != -1){
             RadioButton rb = (RadioButton)
@@ -53,21 +55,22 @@ public class MainActivity extends AppCompatActivity {
         }
         if (hasil == null){
             tv2.setText("Belum Memlih");
+        } else {
+            tv2.setText("Ekstrakulikuler :"+hasil);
         }
-        else{
-            tv2.setText("Ekstrakulikuler anda: "+ hasil);
-        }
-        tv3.setText("Jurusaan: "+ spin.getSelectedItem().toString());
 
-        String hasil4 = "Hobby anda:  \nl";
+        tv3.setText("Jurusan: "+ spin.getSelectedItem().toString());
+
+
+        String hasil4 = "Hobby Anda:  \n";
         int startlen = hasil4.length();
-        if (cb1.isChecked()) hasil4+=cb1.getText()+"\n";
+        if (cb1.isChecked()) hasil4+= cb1.getText()+"\n";
 
         if (cb2.isChecked()) hasil4+=cb2.getText()+"\n";
 
         if (cb3.isChecked()) hasil4+=cb3.getText()+"\n";
 
-        if (hasil.length()==startlen) hasil4+="belum memilih";
+        if (hasil.length() == startlen) hasil4+="belum memilih";
         tv4.setText(hasil4);
 
 
@@ -79,27 +82,27 @@ public class MainActivity extends AppCompatActivity {
     private void doProcess() {
         if (isValid())
         {
-            String nn1 = Ednama.getText().toString();
-            tv1.setText("nama:  "+ nn1);
+            String nn1 = etnama.getText().toString();
+            tv1.setText("Nama :"+ nn1);
         }
     }
 
     private boolean isValid() {
         boolean valid = true;
-        String nn1= Ednama.getText().toString()
+        String nn1= etnama.getText().toString();
 
         if (nn1.isEmpty()) {
-            Ednama.setError("mohon isi nama anda");
+            etnama.setError("mohon isi nama anda");
             valid = false;
         }
         else if (nn1.length() < 2)
         {
-            Ednama.setError("nama harus lebih dari 2 karakter");
+            etnama.setError("nama harus lebih dari 2 karakter");
             valid = false;
         }
         else
         {
-            Ednama.setError(null);
+            etnama.setError(null);
         }
         return valid;
 
